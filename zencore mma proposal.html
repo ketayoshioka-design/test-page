@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ZENCORE — MMA / 総合格闘技ジム向け導入提案書 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Noto+Sans+JP:wght@300;400;500;700&family=Bebas+Neue&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #C9A84C;
+    --gold-light: #E8C96A;
+    --dark: #0D1117;
+    --dark-2: #161B22;
+    --dark-3: #21262D;
+    --steel: #30363D;
+    --muted: #8B949E;
+    --light: #F0F6FC;
+    --white: #FFFFFF;
+    --red: #C0392B;
+    --green: #1A7F37;
+    --mma: #9B1C1C;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Noto Sans JP', sans-serif; background: var(--dark); color: var(--light); line-height: 1.7; }
+
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(13,17,23,0.94); backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(201,168,76,0.2);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 2.5rem; height: 56px;
+  }
+  .nav-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; letter-spacing: 0.12em; color: var(--gold); }
+  .nav-links { display: flex; gap: 1.6rem; list-style: none; }
+  .nav-links a { color: var(--muted); text-decoration: none; font-size: 0.74rem; letter-spacing: 0.05em; font-weight: 500; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--gold); }
+
+  /* HERO */
+  #hero {
+    min-height: 100vh; display: flex; flex-direction: column;
+    justify-content: center; padding: 8rem 6rem 4rem;
+    background: var(--dark); position: relative; overflow: hidden;
+  }
+  .hero-bg-z { position: absolute; right: -4rem; top: -6rem; font-family: 'Bebas Neue', sans-serif; font-size: 60vw; color: rgba(201,168,76,0.04); line-height: 1; pointer-events: none; }
+  .hero-badge { display: inline-flex; align-items: center; gap: 0.6rem; border: 1px solid var(--gold); padding: 0.35rem 1rem; font-size: 0.7rem; letter-spacing: 0.15em; font-weight: 500; color: var(--gold); margin-bottom: 2rem; animation: fadeUp 0.6s ease both; }
+  .hero-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(3.2rem, 8.5vw, 7.5rem); line-height: 0.92; letter-spacing: 0.04em; color: var(--gold); animation: fadeUp 0.7s 0.1s ease both; }
+  .hero-title span { color: var(--white); }
+  .hero-sub { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.1rem, 2.2vw, 1.5rem); color: var(--light); margin-top: 1.5rem; max-width: 680px; font-style: italic; animation: fadeUp 0.7s 0.2s ease both; }
+  .hero-meta { display: flex; gap: 3rem; margin-top: 2.5rem; flex-wrap: wrap; animation: fadeUp 0.7s 0.3s ease both; }
+  .hero-meta-item label { display: block; font-size: 0.66rem; letter-spacing: 0.1em; color: var(--muted); text-transform: uppercase; margin-bottom: 0.2rem; }
+  .hero-meta-item span { font-size: 0.86rem; color: var(--light); }
+  .hero-cta { display: flex; gap: 1rem; margin-top: 2.5rem; animation: fadeUp 0.7s 0.4s ease both; }
+  .btn-primary { background: var(--gold); color: var(--dark); padding: 0.85rem 2rem; font-weight: 700; font-size: 0.85rem; letter-spacing: 0.08em; border: none; cursor: pointer; transition: background 0.2s, transform 0.15s; text-decoration: none; display: inline-block; }
+  .btn-primary:hover { background: var(--gold-light); transform: translateY(-1px); }
+  .btn-outline { border: 1.5px solid var(--gold); color: var(--gold); padding: 0.85rem 2rem; font-size: 0.85rem; font-weight: 500; letter-spacing: 0.08em; cursor: pointer; background: transparent; transition: all 0.2s; text-decoration: none; display: inline-block; }
+  .btn-outline:hover { background: rgba(201,168,76,0.08); }
+  .ijf-stamp { position: absolute; right: 6rem; bottom: 4rem; width: 120px; height: 120px; border: 3px solid var(--gold); border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; animation: fadeUp 0.7s 0.5s ease both; }
+  .ijf-stamp .stamp-top { font-size: 0.52rem; letter-spacing: 0.1em; color: var(--gold); font-weight: 700; }
+  .ijf-stamp .stamp-main { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; color: var(--gold); line-height: 1; }
+  .ijf-stamp .stamp-bot { font-size: 0.42rem; letter-spacing: 0.14em; color: var(--muted); }
+
+  section { padding: 6rem 6rem; }
+  .section-num { font-family: 'Bebas Neue', sans-serif; font-size: 0.8rem; letter-spacing: 0.2em; color: var(--gold); margin-bottom: 0.5rem; }
+  .section-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 3.8vw, 3.2rem); font-weight: 600; line-height: 1.15; color: var(--white); margin-bottom: 1rem; }
+  .section-title em { color: var(--gold); font-style: normal; }
+  .section-lead { color: var(--muted); font-size: 0.93rem; max-width: 680px; margin-bottom: 3rem; line-height: 1.85; }
+
+  /* CERTIFICATE PROOF SECTION */
+  #proof { background: var(--dark-2); }
+  .proof-layout { display: grid; grid-template-columns: 0.85fr 1.15fr; gap: 3rem; align-items: center; }
+  .cert-image-wrap { position: relative; }
+  .cert-image-wrap img { width: 100%; display: block; box-shadow: 0 20px 60px rgba(0,0,0,0.5); border: 1px solid rgba(201,168,76,0.25); }
+  .cert-watermark-tag {
+    position: absolute; top: 1rem; right: -1rem;
+    background: var(--gold); color: var(--dark);
+    font-size: 0.68rem; font-weight: 700; letter-spacing: 0.08em;
+    padding: 0.5rem 1rem; box-shadow: 0 6px 16px rgba(0,0,0,0.3);
+  }
+  .proof-points { display: flex; flex-direction: column; gap: 1.3rem; }
+  .proof-point { display: flex; gap: 1.1rem; align-items: flex-start; }
+  .proof-point-icon { width: 42px; height: 42px; background: var(--dark-3); border: 1px solid var(--gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; flex-shrink: 0; }
+  .proof-point h4 { font-size: 0.92rem; font-weight: 700; color: var(--white); margin-bottom: 0.35rem; }
+  .proof-point p { font-size: 0.83rem; color: var(--muted); line-height: 1.7; }
+  .proof-note { margin-top: 1.5rem; font-size: 0.74rem; color: var(--muted); border-top: 1px solid var(--steel); padding-top: 1rem; line-height: 1.7; }
+
+  /* PROBLEM - MMA specific */
+  #problem { background: var(--dark); }
+  .problem-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1.3rem; margin-bottom: 3rem; }
+  .problem-card { background: var(--dark-2); padding: 1.8rem; border-left: 3px solid var(--mma); }
+  .problem-card h4 { font-size: 0.88rem; font-weight: 700; color: var(--white); margin-bottom: 0.6rem; }
+  .problem-card p { font-size: 0.81rem; color: var(--muted); line-height: 1.7; }
+  .quote-block { border: 1px solid var(--steel); padding: 2rem 2.5rem; position: relative; margin-bottom: 0; }
+  .quote-block::before { content: '"'; font-family: 'Cormorant Garamond', serif; font-size: 6rem; color: var(--gold); opacity: 0.3; position: absolute; top: -1.5rem; left: 1.5rem; line-height: 1; }
+  .quote-block p { font-style: italic; font-size: 0.92rem; color: var(--light); line-height: 1.8; }
+  .quote-block cite { font-size: 0.74rem; color: var(--muted); margin-top: 0.8rem; display: block; }
+
+  /* THREE PILLARS - core MMA value props */
+  #pillars { background: var(--dark-2); }
+  .pillar-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2px; }
+  .pillar-card { background: var(--dark-3); padding: 2.5rem 2rem; }
+  .pillar-num { font-family: 'Bebas Neue', sans-serif; font-size: 0.75rem; letter-spacing: 0.15em; color: var(--gold); margin-bottom: 1rem; }
+  .pillar-icon { font-size: 2.2rem; margin-bottom: 1rem; }
+  .pillar-card h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 600; color: var(--white); margin-bottom: 1rem; }
+  .pillar-card p { font-size: 0.84rem; color: var(--muted); line-height: 1.75; margin-bottom: 1.2rem; }
+  .pillar-spec { display: flex; flex-direction: column; gap: 0.5rem; }
+  .pillar-spec-item { font-size: 0.78rem; color: var(--light); display: flex; gap: 0.5rem; align-items: flex-start; }
+  .pillar-spec-item::before { content: '▸'; color: var(--gold); flex-shrink: 0; }
+
+  /* BEYOND COST VALUE */
+  #value { background: var(--dark); }
+  .value-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.3rem; }
+  .value-card { background: var(--dark-3); padding: 1.8rem; border-top: 2px solid var(--gold); }
+  .value-icon { font-size: 1.8rem; margin-bottom: 0.8rem; }
+  .value-card h4 { font-size: 0.92rem; font-weight: 700; color: var(--white); margin-bottom: 0.6rem; line-height: 1.4; }
+  .value-card p { font-size: 0.8rem; color: var(--muted); line-height: 1.7; }
+
+  /* MULTI-DIRECTIONAL LOAD DIAGRAM */
+  #loadzones { background: var(--dark-2); }
+  .zone-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.2rem; }
+  .zone-card { background: var(--dark-2); padding: 1.8rem; display: flex; gap: 1.2rem; align-items: flex-start; border-top: 2px solid var(--gold); }
+  .zone-emoji { font-size: 1.8rem; flex-shrink: 0; }
+  .zone-card h4 { font-size: 0.88rem; font-weight: 700; color: var(--gold); margin-bottom: 0.4rem; }
+  .zone-card p { font-size: 0.81rem; color: var(--muted); line-height: 1.65; }
+
+  /* SPEC TABLE */
+  #spec { background: var(--dark); }
+  .spec-compare { width: 100%; border-collapse: collapse; }
+  .spec-compare th { background: var(--steel); color: var(--muted); font-size: 0.72rem; letter-spacing: 0.1em; padding: 0.7rem 1rem; text-align: left; font-weight: 500; }
+  .spec-compare td { padding: 0.85rem 1rem; font-size: 0.83rem; border-bottom: 1px solid var(--dark-3); color: var(--light); }
+  .spec-compare tr:nth-child(even) td { background: rgba(255,255,255,0.02); }
+  .tag-bad { color: var(--red); font-weight: 700; }
+  .tag-good { color: #3FB950; font-weight: 700; }
+
+  /* ROI */
+  #roi { background: var(--dark-2); }
+  .roi-controls { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 2rem; }
+  .ctrl-group { display: flex; flex-direction: column; gap: 0.4rem; }
+  .ctrl-group label { font-size: 0.73rem; color: var(--muted); letter-spacing: 0.05em; }
+  .ctrl-group input[type="range"] { -webkit-appearance: none; height: 3px; background: var(--steel); border-radius: 2px; cursor: pointer; }
+  .ctrl-group input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 16px; height: 16px; border-radius: 50%; background: var(--gold); cursor: pointer; }
+  .ctrl-val { font-size: 1.05rem; font-weight: 700; color: var(--gold); }
+  .roi-results { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; margin-bottom: 2rem; }
+  .roi-card { background: var(--dark-2); padding: 1.8rem; text-align: center; }
+  .roi-card.highlight { background: linear-gradient(135deg, rgba(201,168,76,0.15), rgba(201,168,76,0.04)); border: 1px solid rgba(201,168,76,0.3); }
+  .roi-card .roi-label { font-size: 0.7rem; color: var(--muted); letter-spacing: 0.07em; margin-bottom: 0.5rem; }
+  .roi-card .roi-value { font-family: 'Bebas Neue', sans-serif; font-size: 2.1rem; color: var(--gold); }
+  .roi-card.dim .roi-value { color: var(--muted); }
+  .roi-card .roi-sub { font-size: 0.68rem; color: var(--muted); margin-top: 0.3rem; }
+  .bar-chart { display: flex; flex-direction: column; gap: 1rem; }
+  .bar-row { display: flex; align-items: center; gap: 1.2rem; }
+  .bar-row-label { width: 190px; font-size: 0.78rem; color: var(--muted); flex-shrink: 0; text-align: right; }
+  .bar-track { flex: 1; height: 28px; background: var(--steel); }
+  .bar-fill { height: 100%; transition: width 0.5s ease; display: flex; align-items: center; padding-left: 0.8rem; }
+  .bar-fill span { font-size: 0.76rem; font-weight: 700; color: var(--dark); white-space: nowrap; }
+  .bar-fill.gold { background: var(--gold); }
+  .bar-fill.gray1 { background: #556; }
+  .bar-fill.gray2 { background: #445; }
+  .roi-note { font-size: 0.7rem; color: var(--muted); margin-top: 1.5rem; border-top: 1px solid var(--steel); padding-top: 1rem; line-height: 1.8; }
+
+  /* PRICING */
+  #pricing { background: var(--dark); }
+  .plan-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5px; }
+  .plan-card { background: var(--dark-3); padding: 2.5rem 2rem; }
+  .plan-card.featured { border-top: 3px solid var(--gold); }
+  .plan-tier { font-size: 0.64rem; letter-spacing: 0.18em; color: var(--gold); font-weight: 700; margin-bottom: 0.4rem; }
+  .plan-name { font-family: 'Cormorant Garamond', serif; font-size: 1.7rem; color: var(--white); font-weight: 600; }
+  .plan-target { font-size: 0.76rem; color: var(--muted); margin: 0.3rem 0 1.5rem; }
+  .plan-price { font-family: 'Bebas Neue', sans-serif; font-size: 2.8rem; color: var(--gold); line-height: 1; }
+  .plan-price sup { font-size: 1.1rem; }
+  .plan-price-label { font-size: 0.7rem; color: var(--muted); margin: 0.3rem 0 1.5rem; }
+  .plan-features { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+  .plan-features li { font-size: 0.81rem; color: var(--light); display: flex; align-items: flex-start; gap: 0.5rem; }
+  .plan-features li::before { content: '✓'; color: var(--gold); font-weight: 700; flex-shrink: 0; }
+  .plan-note { font-size: 0.7rem; color: var(--muted); margin-top: 1.2rem; padding-top: 1rem; border-top: 1px solid var(--steel); line-height: 1.7; }
+
+  /* TRACK RECORD */
+  #track { background: var(--dark-2); }
+  .country-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; margin-bottom: 3rem; }
+  .country-card { background: var(--dark-2); padding: 1.8rem 1.5rem; }
+  .country-flag { font-size: 2.2rem; margin-bottom: 0.7rem; }
+  .country-name { font-family: 'Cormorant Garamond', serif; font-size: 1.05rem; font-weight: 600; color: var(--gold); margin-bottom: 0.4rem; }
+  .country-desc { font-size: 0.8rem; color: var(--muted); line-height: 1.6; }
+  .domestic-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin-top: 2rem; }
+  .domestic-card { background: var(--dark-2); padding: 1.2rem 1.5rem; display: flex; gap: 1rem; align-items: center; }
+  .domestic-year { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; color: var(--gold); flex-shrink: 0; width: 56px; }
+  .domestic-name { font-size: 0.82rem; color: var(--light); line-height: 1.5; }
+
+  /* IMPACT DATA EXPLAINER */
+  #impactdata { background: var(--dark); }
+  .impact-compare { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 2rem; }
+  .impact-col { border-radius: 0; overflow: hidden; }
+  .impact-col-header { padding: 1rem 1.5rem; font-size: 0.88rem; font-weight: 700; }
+  .impact-col.safe .impact-col-header { background: var(--green); color: var(--white); }
+  .impact-col.danger .impact-col-header { background: var(--red); color: var(--white); }
+  .impact-col-body { background: var(--dark-3); padding: 1.8rem; }
+  .impact-lead-text { font-size: 1rem; font-weight: 700; color: var(--gold); margin-bottom: 1rem; }
+  .impact-list { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; margin-bottom: 1.2rem; }
+  .impact-list li { font-size: 0.85rem; color: var(--light); padding-left: 1.2rem; position: relative; line-height: 1.6; }
+  .impact-list li::before { content: '—'; position: absolute; left: 0; color: var(--muted); }
+  .impact-footnote { font-size: 0.78rem; color: var(--muted); border-top: 1px solid var(--steel); padding-top: 0.9rem; line-height: 1.6; }
+  .impact-calc { background: var(--dark-3); padding: 2rem 2.2rem; border: 1px solid var(--steel); }
+  .impact-calc h4 { font-size: 0.95rem; color: var(--gold); margin-bottom: 0.6rem; }
+  .impact-calc-intro { font-size: 0.78rem; color: var(--muted); margin-bottom: 1.3rem; line-height: 1.7; font-style: italic; }
+  .calc-row { display: flex; justify-content: space-between; align-items: baseline; gap: 1.5rem; padding: 0.8rem 0; border-bottom: 1px solid var(--steel); flex-wrap: wrap; }
+  .calc-row:last-of-type { border-bottom: none; }
+  .calc-label { font-size: 0.85rem; color: var(--light); flex: 1; min-width: 280px; }
+  .calc-value { font-size: 0.85rem; color: var(--muted); text-align: right; }
+  .calc-value span { color: var(--gold); font-weight: 700; font-size: 1rem; }
+  .impact-conclusion { margin-top: 1.3rem; padding-top: 1.3rem; border-top: 1px solid var(--steel); font-size: 0.85rem; color: var(--grayL); line-height: 1.85; }
+  .impact-conclusion strong { color: var(--white); }
+
+  /* SWOT */
+  #swot { background: var(--dark-2); }
+  .swot-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+  .swot-header { padding: 1rem 1.5rem; font-size: 0.83rem; font-weight: 700; letter-spacing: 0.05em; }
+  .swot-header.green { background: var(--green); color: var(--white); }
+  .swot-header.red { background: var(--red); color: var(--white); }
+  .swot-body { background: var(--dark-3); padding: 1.5rem; }
+  .swot-item { display: flex; align-items: flex-start; gap: 0.8rem; padding: 0.7rem 0; border-bottom: 1px solid var(--steel); font-size: 0.86rem; }
+  .swot-item:last-child { border-bottom: none; }
+  .swot-item .arrow { color: var(--gold); font-weight: 700; flex-shrink: 0; }
+  .swot-item.weak .arrow { color: var(--red); }
+  .swot-item p { color: var(--light); line-height: 1.5; }
+  .swot-item p small { display: block; font-size: 0.73rem; color: var(--muted); margin-top: 0.2rem; }
+
+  /* CTA */
+  #cta { background: var(--dark-3); padding: 6rem; text-align: center; position: relative; overflow: hidden; }
+  #cta .bg-text { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); font-family: 'Bebas Neue', sans-serif; font-size: 40vw; color: rgba(201,168,76,0.04); pointer-events: none; white-space: nowrap; }
+  #cta h2 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.2rem, 4.5vw, 4rem); color: var(--gold); letter-spacing: 0.06em; margin-bottom: 1rem; position: relative; }
+  #cta p { font-size: 0.93rem; color: var(--muted); max-width: 560px; margin: 0 auto 2.5rem; line-height: 1.85; position: relative; }
+  .cta-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; position: relative; }
+  .event-info { display: flex; justify-content: center; gap: 3rem; margin-top: 3rem; border-top: 1px solid var(--steel); padding-top: 2rem; flex-wrap: wrap; position: relative; }
+  .event-info-item label { font-size: 0.66rem; letter-spacing: 0.1em; color: var(--muted); display: block; margin-bottom: 0.3rem; }
+  .event-info-item span { font-size: 0.86rem; color: var(--light); }
+  .contact-block { margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--steel); position: relative; }
+  .contact-name { font-size: 0.82rem; color: var(--muted); margin-bottom: 0.3rem; }
+  .contact-person { font-size: 1.05rem; font-weight: 700; color: var(--gold); margin-bottom: 0.4rem; }
+  .contact-details { font-size: 0.78rem; color: var(--muted); }
+
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: none; } }
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .reveal.visible { opacity: 1; transform: none; }
+
+  @media (max-width: 900px) {
+    section { padding: 4rem 1.5rem; }
+    #hero { padding: 7rem 1.5rem 3rem; }
+    .proof-layout, .problem-grid, .pillar-grid, .zone-grid,
+    .plan-grid, .country-grid, .domestic-grid, .swot-grid,
+    .roi-controls, .roi-results { grid-template-columns: 1fr; }
+    .nav-links { display: none; }
+    .ijf-stamp { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">ZENCORE</div>
+  <ul class="nav-links">
+    <li><a href="#proof">認証証明</a></li>
+    <li><a href="#problem">課題</a></li>
+    <li><a href="#pillars">3つの強み</a></li>
+    <li><a href="#value">価格以外の価値</a></li>
+    <li><a href="#loadzones">負荷ゾーン</a></li>
+    <li><a href="#spec">スペック</a></li>
+    <li><a href="#roi">参考コスト</a></li>
+    <li><a href="#pricing">価格</a></li>
+    <li><a href="#track">実績</a></li>
+    <li><a href="#impactdata">適性ガイド</a></li>
+    <li><a href="#swot">強み・弱み</a></li>
+    <li><a href="#cta">お問い合わせ</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg-z">Z</div>
+  <div class="hero-badge">IJF CERTIFIED — MMA / 総合格闘技対応 — 2026</div>
+  <h1 class="hero-title">THE FLOOR<br><span>THAT TAKES</span><br>EVERY HIT.</h1>
+  <p class="hero-sub">スタンドの打撃からグラウンドの組技まで。<br>多方向の衝撃・汗・出血に耐える、国際認証取得の競技フロア。<br>選手の安全を、床から守る。</p>
+  <div class="hero-meta">
+    <div class="hero-meta-item"><label>対象</label><span>MMA / 総合格闘技ジム・道場</span></div>
+    <div class="hero-meta-item"><label>仕様</label><span>IJF認証 PVCレザー畳 / ㎡単位カスタム対応</span></div>
+    <div class="hero-meta-item"><label>適性</label><span>打撃・組技・グラウンド全対応</span></div>
+  </div>
+  <div class="hero-cta">
+    <a href="#proof" class="btn-primary">認証の証明を見る</a>
+    <a href="#cta" class="btn-outline">サンプル・資料請求</a>
+  </div>
+  <div class="ijf-stamp">
+    <span class="stamp-top">国際柔道連盟</span>
+    <span class="stamp-main">IJF</span>
+    <span class="stamp-bot">CERTIFIED</span>
+  </div>
+</section>
+
+<!-- CERTIFICATE PROOF -->
+<section id="proof">
+  <div class="section-num">01 — VERIFIED CERTIFICATION</div>
+  <h2 class="section-title">「認証取得済み」は<em>こう証明されています</em></h2>
+  <p class="section-lead">ZENCOREの製造元は、国際柔道連盟（IJF）公式畳サプライヤーとして正式に認証されています。これはメーカーの自己申告ではなく、国際競技連盟による第三者認証です。</p>
+  <div class="proof-layout reveal">
+    <div class="cert-image-wrap">
+      <div class="cert-watermark-tag">VERIFIED CERTIFICATE</div>
+      <img src="ijf_cert_for_doc.png" alt="IJF Official Supplier Certificate">
+    </div>
+    <div class="proof-points">
+      <div class="proof-point">
+        <div class="proof-point-icon">🏛️</div>
+        <div><h4>国際柔道連盟による公式発行</h4><p>IJF会長 Marius L. Vizer氏の署名と公式印章入り。製造元が「Official IJF Tatami Supplier（IJF公式畳サプライヤー）」であることを正式に証明する文書です。</p></div>
+      </div>
+      <div class="proof-point">
+        <div class="proof-point-icon">🔒</div>
+        <div><h4>第三者認証 — 自己申告ではない</h4><p>メーカーが独自に「高品質」を主張するのではなく、オリンピック競技を統括する国際連盟が品質基準への適合を審査・証明している点が重要です。</p></div>
+      </div>
+      <div class="proof-point">
+        <div class="proof-point-icon">🥋</div>
+        <div><h4>柔道の本場基準＝MMAに最適</h4><p>柔道は組技・投げ技・グラウンド寝技を含む競技。その国際基準をクリアした床材は、MMAのテイクダウン・グラウンド展開にもそのまま対応できる設計です。</p></div>
+      </div>
+      <div class="proof-point">
+        <div class="proof-point-icon">📄</div>
+        <div><h4>商談・稟議に使える根拠資料</h4><p>導入をご検討の際は、本証明書（製造元名は商業機密のため一部マスキング）と試験データを商談時にご提示し、社内承認の根拠としてご活用いただけます。</p></div>
+      </div>
+    </div>
+  </div>
+  <div class="proof-note reveal">※掲載の認証書は製造元の商業機密保護のため企業名を一部マスキングしています。正式な認証書原本は商談時に提示可能です。</div>
+</section>
+
+<!-- PROBLEM -->
+<section id="problem">
+  <div class="section-num">02 — THE PROBLEM</div>
+  <h2 class="section-title">MMAの床負荷は<br><em>柔道・レスリングの比ではない</em></h2>
+  <p class="section-lead">打撃の着地衝撃、テイクダウンの落下、グラウンドでの絞め技・サブミッションの体重移動——MMAは「打」「投」「組」のすべてが同じ床の上で起こる、最も複合的なストレスを床に与える競技です。</p>
+  <div class="problem-grid reveal">
+    <div class="problem-card">
+      <h4>🔀 多方向からの荷重</h4>
+      <p>スタンドでの蹴り・パンチの着地反力、テイクダウンの垂直落下、グラウンドでの回転・スクランブル。一般的な床材は特定方向の負荷を想定して設計されており、MMAの全方向ストレスには耐えられない。</p>
+    </div>
+    <div class="problem-card">
+      <h4>🩸 出血・体液への対応</h4>
+      <p>打撃系競技では出血を伴う場面が避けられない。防水構造のない床材は体液が内部に浸透し、衛生管理上の重大なリスクとなる。次の練習までの消毒・清掃にも時間がかかる。</p>
+    </div>
+    <div class="problem-card">
+      <h4>⚠️ 選手の怪我リスク</h4>
+      <p>滑り止めが不十分な床はテイクダウン時の踏み込みやグラウンドでのポジション争いで予期しない滑りを生む。コーナーのめくれは組技中の引っかかり・捻挫の原因になる。</p>
+    </div>
+  </div>
+  <div class="quote-block reveal">
+    <p>「MMAジムの床は、柔道場よりも過酷な使われ方をする。打撃の着地、投げ、寝技の体重移動——あらゆる方向からの力に耐えられる床でなければ、選手を守れない。」</p>
+    <cite>— MMA / 総合格闘技ジム 運営者（業界ヒアリングより要約）</cite>
+  </div>
+</section>
+
+<!-- THREE PILLARS -->
+<section id="pillars">
+  <div class="section-num">03 — THREE PILLARS</div>
+  <h2 class="section-title">ZENCOREが解決する<em>3つの核心課題</em></h2>
+  <div class="pillar-grid reveal">
+    <div class="pillar-card">
+      <div class="pillar-num">PILLAR 01</div>
+      <div class="pillar-icon">🔀</div>
+      <h3>多方向負荷耐性</h3>
+      <p>スタンド〜グラウンドへの移行は、垂直衝撃・水平摩擦・回転ストレスが連続して発生する。ZENCOREは繰り返し圧縮破壊試験をクリアした構造で、この複合負荷に耐える。</p>
+      <div class="pillar-spec">
+        <div class="pillar-spec-item">繰り返し圧縮破壊試験クリア — 亀裂・剥離なし</div>
+        <div class="pillar-spec-item">600×600Dポリエステル基布で高強度を実現</div>
+        <div class="pillar-spec-item">四隅熱結合加工でめくれ・引っかかり事故ゼロ</div>
+      </div>
+    </div>
+    <div class="pillar-card">
+      <div class="pillar-num">PILLAR 02</div>
+      <div class="pillar-icon">🛡️</div>
+      <h3>防水・衛生性能</h3>
+      <p>汗・出血が頻発するMMA環境において、防水構造は衛生管理の生命線。PVC包み込み工法による完全防水で、体液が内部に浸透せず、清掃・消毒が短時間で完了する。</p>
+      <div class="pillar-spec">
+        <div class="pillar-spec-item">PVC完全包み込み工法 — 防水・防湿構造</div>
+        <div class="pillar-spec-item">表面の拭き取り・消毒で衛生管理が完結</div>
+        <div class="pillar-spec-item">70℃×30日連続試験で劣化なしを実証</div>
+      </div>
+    </div>
+    <div class="pillar-card">
+      <div class="pillar-num">PILLAR 03</div>
+      <div class="pillar-icon">🥋</div>
+      <h3>選手の安全性</h3>
+      <p>怪我のリスクは床面の滑り止め性能とコーナー処理に大きく依存する。ZENCOREは濡れた状態でも高い摩擦力を維持し、選手が安心して全力で技をかけられる環境を提供する。</p>
+      <div class="pillar-spec">
+        <div class="pillar-spec-item">滑り止め8kg/㎡以上（濡れた状態でも維持）</div>
+        <div class="pillar-spec-item">エンボス加工によるグリップ感の最適化</div>
+        <div class="pillar-spec-item">IJF国際基準の安全性を選手・保護者に明示可能</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY NOT JUST PRICE -->
+<section id="value">
+  <div class="section-num">04 — BEYOND COST</div>
+  <h2 class="section-title">価格だけでは<em>測れない価値</em></h2>
+  <p class="section-lead">ジム経営の設備サイクルは平均3年程度。長期コスト比較だけでは語れない、「今すぐ」効いてくる価値があります。ZENCOREが選ばれる理由は、価格でも10年計算でもなく、日々の練習環境そのものです。</p>
+  <div class="value-grid reveal">
+    <div class="value-card">
+      <div class="value-icon">🥋</div>
+      <h4>選手の安全性を、根拠を持って説明できる</h4>
+      <p>「安全な床です」という説明と「国際連盟認証を持つ製造元の床です」という説明では、保護者・会員への伝わり方が違う。怪我リスクへの配慮を、客観的な根拠で示せる。</p>
+    </div>
+    <div class="value-card">
+      <div class="value-icon">🩸</div>
+      <h4>出血・体液をその場で完全に処理できる</h4>
+      <p>防水構造により、出血を伴う練習後でも表面の拭き取り・消毒だけで衛生管理が完結。次のクラスまでの待ち時間や清掃要員の負担を増やさない。</p>
+    </div>
+    <div class="value-card">
+      <div class="value-icon">👃</div>
+      <h4>「臭わない」道場という第一印象</h4>
+      <p>安価なラバー・EVAは特有の臭気がこもりやすい。入会検討者が見学に来た瞬間の印象は、契約率に直結する。ZENCOREは防水構造ゆえ臭気がこもらない。</p>
+    </div>
+    <div class="value-card">
+      <div class="value-icon">🏆</div>
+      <h4>国際認証ロゴが営業ツールになる</h4>
+      <p>SNS・Webサイト・受付に掲示できる国際認証は、会員獲得の差別化要素になる。価格を下げずに価値で選ばれるジムづくりに直結する。</p>
+    </div>
+    <div class="value-card">
+      <div class="value-icon">⚡</div>
+      <h4>3年程度での張り替えでも劣化が少ない</h4>
+      <p>10年単位の損益分岐ではなく、短期間でも「めくれ・剥離・へたりが目立たない」という体感差がある。次の張り替えまで、見た目と安全性を維持しやすい。</p>
+    </div>
+    <div class="value-card">
+      <div class="value-icon">🌐</div>
+      <h4>外国人会員・選手への訴求力</h4>
+      <p>IJFは世界200カ国以上に認知された国際ブランド。インバウンド需要や海外経験のある選手・トレーニーへの説明材料として機能する。</p>
+    </div>
+  </div>
+</section>
+
+<!-- LOAD ZONES -->
+<section id="loadzones">
+  <div class="section-num">05 — LOAD ZONE COVERAGE</div>
+  <h2 class="section-title">MMAの<em>全シーン</em>に対応</h2>
+  <p class="section-lead">打撃・テイクダウン・グラウンド——競技の各フェーズで発生する具体的な負荷に、ZENCOREがどう対応するかをご説明します。</p>
+  <div class="zone-grid reveal">
+    <div class="zone-card">
+      <div class="zone-emoji">🥊</div>
+      <div><h4>スタンドの打撃・フットワーク</h4><p>パンチ・キックの踏み込み、ステップワークでの方向転換。高い滑り止め性能がフットワークの安定性を支え、不意の滑りによる怪我を防ぐ。</p></div>
+    </div>
+    <div class="zone-card">
+      <div class="zone-emoji">🤼</div>
+      <div><h4>テイクダウン・投げ技</h4><p>立位から一気に床へ落下する瞬間的な衝撃荷重。繰り返し圧縮試験をクリアした耐久構造が、長期間の練習でもへたりを防ぐ。</p></div>
+    </div>
+    <div class="zone-card">
+      <div class="zone-emoji">🔄</div>
+      <div><h4>グラウンド・スクランブル</h4><p>体重移動と回転を伴う寝技の展開。表面のエンボス加工が適度なグリップを保ちつつ、過度な摩擦熱を抑える設計。</p></div>
+    </div>
+    <div class="zone-card">
+      <div class="zone-emoji">🩹</div>
+      <div><h4>練習後の清掃・衛生管理</h4><p>汗・出血が付着した床面も、防水PVC表面なら拭き取り・消毒が短時間で完了。次のクラスまでの準備時間を短縮できる。</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- SPEC COMPARISON -->
+<section id="spec">
+  <div class="section-num">06 — SPECIFICATION</div>
+  <h2 class="section-title">製品スペック<em>詳細</em></h2>
+  <table class="spec-compare reveal">
+    <thead><tr><th>チェック項目</th><th>EVA / 一般ラバー</th><th>ZENCORE（IJF認証）</th></tr></thead>
+    <tbody>
+      <tr><td>完全防水構造</td><td class="tag-bad">✕ 非対応</td><td class="tag-good">✓ PVC包込工法</td></tr>
+      <tr><td>体液・出血への耐性</td><td class="tag-bad">✕ 内部浸透リスク</td><td class="tag-good">✓ 表面で完全ブロック</td></tr>
+      <tr><td>繰り返し圧縮試験クリア</td><td class="tag-bad">✕ データなし</td><td class="tag-good">✓ 試験合格済</td></tr>
+      <tr><td>滑り止め 8kg/㎡以上（濡れ時）</td><td class="tag-bad">✕ 不十分</td><td class="tag-good">✓ 合成ゴムワッフル裏</td></tr>
+      <tr><td>四隅熱結合（引っかかり防止）</td><td class="tag-bad">✕ なし</td><td class="tag-good">✓ 標準装備</td></tr>
+      <tr><td>70℃耐熱30日連続試験</td><td class="tag-bad">✕ 未実施</td><td class="tag-good">✓ 合格済</td></tr>
+      <tr><td>国際競技連盟による認証</td><td class="tag-bad">✕ なし</td><td class="tag-good">✓ IJF公式認証</td></tr>
+      <tr><td>環境対応接着剤</td><td class="tag-bad">✕ 揮発性溶剤</td><td class="tag-good">✓ 無溶剤・SDGs対応</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ROI -->
+<section id="roi">
+  <div class="section-num">07 — REFERENCE: COST</div>
+  <h2 class="section-title">参考：<em>コスト試算</em></h2>
+  <p class="section-lead">設備サイクルが3年程度であることを踏まえ、コスト比較は判断材料の一つとしてご参考までに。短期的な差し替えでも、初期費用以上に「劣化の少なさ」「衛生コスト」が効いてきます。</p>
+  <div class="roi-controls reveal">
+    <div class="ctrl-group"><label>施工エリア面積（㎡）</label><input type="range" id="area" min="20" max="300" value="80" oninput="calcROI()"><div class="ctrl-val" id="area-val">80㎡</div></div>
+    <div class="ctrl-group"><label>提案単価（㎡）</label><input type="range" id="our-price" min="20000" max="35000" step="1000" value="25000" oninput="calcROI()"><div class="ctrl-val" id="our-price-val">¥25,000</div></div>
+    <div class="ctrl-group"><label>現在の床材 交換頻度（年）</label><input type="range" id="freq" min="1" max="5" step="1" value="2" oninput="calcROI()"><div class="ctrl-val" id="freq-val">2年</div></div>
+    <div class="ctrl-group"><label>現在の床材 単価（㎡）</label><input type="range" id="comp-price" min="3000" max="15000" step="500" value="6000" oninput="calcROI()"><div class="ctrl-val" id="comp-price-val">¥6,000</div></div>
+    <div class="ctrl-group"><label>施工・廃棄コスト（1回あたり）</label><input type="range" id="install" min="30000" max="200000" step="10000" value="80000" oninput="calcROI()"><div class="ctrl-val" id="install-val">¥80,000</div></div>
+  </div>
+  <div class="roi-results reveal">
+    <div class="roi-card highlight"><div class="roi-label">初期導入費用（ZENCORE）</div><div class="roi-value" id="r-our">¥2,000,000</div><div class="roi-sub">施工費別途</div></div>
+    <div class="roi-card dim"><div class="roi-label">競合製品の10年TCO</div><div class="roi-value" id="r-comp">¥2,560,000</div><div class="roi-sub">交換コスト込み</div></div>
+    <div class="roi-card"><div class="roi-label">10年間のコスト削減額</div><div class="roi-value" id="r-save">¥560,000</div><div class="roi-sub">TCO差額（試算値）</div></div>
+  </div>
+  <div class="bar-chart reveal">
+    <div class="bar-row"><div class="bar-row-label">ZENCORE（IJF認証）</div><div class="bar-track"><div class="bar-fill gold" id="bar-our" style="width:64%"><span id="bar-our-val">¥2,000,000</span></div></div></div>
+    <div class="bar-row"><div class="bar-row-label">EVAジョイントマット</div><div class="bar-track"><div class="bar-fill gray1" id="bar-eva" style="width:82%"><span id="bar-eva-val">¥2,560,000</span></div></div></div>
+    <div class="bar-row"><div class="bar-row-label">ラバーマット（交換込み）</div><div class="bar-track"><div class="bar-fill gray2" id="bar-rubber" style="width:100%"><span id="bar-rubber-val">¥3,120,000</span></div></div></div>
+  </div>
+  <p class="roi-note">試算の前提：ZENCOREは10年間交換不要（耐久試験データに基づく想定）。競合製品はスライダーで設定した交換頻度に基づき、（面積×単価＋施工費）を10年÷交換頻度の回数分積算。ラバーマットは交換頻度×1.5倍の単価で試算。実際の耐用年数・施工条件は現地確認が必要です。</p>
+</section>
+
+<!-- PRICING -->
+<section id="pricing">
+  <div class="section-num">08 — PRICING</div>
+  <h2 class="section-title"><em>面積別</em> 導入プラン</h2>
+  <div class="plan-grid reveal">
+    <div class="plan-card">
+      <div class="plan-tier">STARTER</div>
+      <div class="plan-name">スタータープラン</div>
+      <div class="plan-target">〜50㎡ / 小規模MMAジム・パーソナル道場</div>
+      <div class="plan-price">¥28,000<sup>/㎡</sup></div>
+      <div class="plan-price-label">総額：〜¥1,400,000（50㎡）</div>
+      <ul class="plan-features">
+        <li>ZENCORE IJF認証畳 全面施工</li>
+        <li>サイズカスタム対応</li>
+        <li>防水・滑り止め全仕様標準</li>
+        <li>認証関連資料・試験データ一式提供</li>
+      </ul>
+      <div class="plan-note">※施工費・搬入費は別途。現地確認後に御見積。</div>
+    </div>
+    <div class="plan-card featured">
+      <div class="plan-tier">STANDARD ★ 人気</div>
+      <div class="plan-name">スタンダードプラン</div>
+      <div class="plan-target">50〜150㎡ / 中規模MMAジム・複数リング/ケージ運用</div>
+      <div class="plan-price">¥25,000<sup>/㎡</sup></div>
+      <div class="plan-price-label">総額：¥1,250,000〜¥3,750,000</div>
+      <ul class="plan-features">
+        <li>ZENCORE IJF認証畳 全面施工</li>
+        <li>サイズ・カラーカスタム対応</li>
+        <li>防水・滑り止め全仕様標準</li>
+        <li>認証関連資料・試験データ一式</li>
+        <li>施工後1年間の品質保証</li>
+        <li>SNS活用素材（認証ロゴ等）提供</li>
+      </ul>
+      <div class="plan-note">※複数施設・チェーン展開は別途ご相談。</div>
+    </div>
+    <div class="plan-card">
+      <div class="plan-tier">MULTI / CHAIN</div>
+      <div class="plan-name">複数施設プラン</div>
+      <div class="plan-target">150㎡以上 / 複数施設・チェーン・興行団体</div>
+      <div class="plan-price">¥22,000<sup>〜/㎡</sup></div>
+      <div class="plan-price-label">ボリュームディスカウント適用</div>
+      <ul class="plan-features">
+        <li>全施設統一仕様での一括施工</li>
+        <li>本部向け資料一括提供</li>
+        <li>複数施設割引（台数・面積に応じ）</li>
+        <li>大会・興行用レイアウト提案対応</li>
+        <li>施工後複数年の品質保証（要交渉）</li>
+        <li>広報素材・国際実績写真の使用許諾</li>
+      </ul>
+      <div class="plan-note">※団体・興行主との一括契約を優先交渉いたします。</div>
+    </div>
+  </div>
+</section>
+
+<!-- TRACK RECORD -->
+<section id="track">
+  <div class="section-num">09 — TRACK RECORD</div>
+  <h2 class="section-title">4カ国の国際大会で<em>証明済み</em></h2>
+  <div class="country-grid reveal">
+    <div class="country-card"><div class="country-flag">🇺🇸</div><div class="country-name">アメリカ</div><p class="country-desc">柔道・テコンドー国際大会にて採用。厳格な安全基準を満たし施設責任者から高評価。</p></div>
+    <div class="country-card"><div class="country-flag">🇨🇦</div><div class="country-name">カナダ</div><p class="country-desc">国際競技大会会場で採用。競技者からの滑り止め性能への評価が高い。</p></div>
+    <div class="country-card"><div class="country-flag">🇦🇪</div><div class="country-name">ドバイ</div><p class="country-desc">高温・多湿環境下での大会でも防水・耐熱性能が安定。70℃試験の実証となる実績。</p></div>
+    <div class="country-card"><div class="country-flag">🇨🇳</div><div class="country-name">中国</div><p class="country-desc">空手・柔道の大規模国際大会で採用。大面積施工の実績を保有。</p></div>
+  </div>
+  <h3 style="font-size:0.76rem;letter-spacing:0.14em;color:var(--muted);margin-bottom:1.2rem;" class="reveal">中国国内 格闘系大会採用実績</h3>
+  <div class="domestic-grid reveal">
+    <div class="domestic-card"><div class="domestic-year">2025</div><div class="domestic-name">淄博全国U17国際式レスリング選手権大会</div></div>
+    <div class="domestic-card"><div class="domestic-year">2023</div><div class="domestic-name">上海柔術大会</div></div>
+    <div class="domestic-card"><div class="domestic-year">2020</div><div class="domestic-name">山東省柔道選手権大会</div></div>
+    <div class="domestic-card"><div class="domestic-year">2020</div><div class="domestic-name">江蘇省常州全国柔道選手権大会</div></div>
+  </div>
+</section>
+
+<!-- IMPACT DATA EXPLAINER -->
+<section id="impactdata">
+  <div class="section-num">09.5 — WHY SOME SPORTS DIFFER</div>
+  <h2 class="section-title">柔道・レスリングと<em>立ち技格闘技の違い</em></h2>
+  <p class="section-lead">「MMAも柔道もレスリングも倒れ込む競技」と思われがちですが、床にかかる衝撃の質はまったく異なります。これは技術の差ではなく、物理的な前提の差です。</p>
+  <div class="impact-compare reveal">
+    <div class="impact-col safe">
+      <div class="impact-col-header">✅ 柔道・レスリング・MMAのテイクダウン</div>
+      <div class="impact-col-body">
+        <p class="impact-lead-text">「受け身」という衝撃分散技術が前提</p>
+        <ul class="impact-list">
+          <li>畳を手で叩いて衝撃を分散させる</li>
+          <li>背中・肩から転がるように倒れ、接地面積を広く取る</li>
+          <li>あごを引き、後頭部を直接打たないよう訓練されている</li>
+        </ul>
+        <div class="impact-footnote">国際柔道連盟（IJF）の畳認証基準は、この「受け身」を前提とした繰り返し衝撃に対する耐久性を試験しています。</div>
+      </div>
+    </div>
+    <div class="impact-col danger">
+      <div class="impact-col-header">⚠️ 立ち技格闘技のノックダウン</div>
+      <div class="impact-col-body">
+        <p class="impact-lead-text">受け身を取れない、無防備な転倒</p>
+        <ul class="impact-list">
+          <li>打撃で意識が飛んだ状態のまま、衝撃分散ができずに倒れる</li>
+          <li>後頭部・側頭部が直接、最短距離で床に到達する</li>
+          <li>接地面積が小さく、衝撃が一点に集中する</li>
+        </ul>
+        <div class="impact-footnote">同じ「倒れる」動作でも、衝撃を受け止める部位と分散の有無が根本的に異なります。</div>
+      </div>
+    </div>
+  </div>
+  <div class="impact-calc reveal">
+    <h4>📐 参考：物理計算による目安</h4>
+    <p class="impact-calc-intro">専門機関による競技中の実測データではなく、基礎的な物理モデルに基づく参考値です。導入判断の目安としてご活用ください。</p>
+    <div class="calc-row">
+      <div class="calc-label">体重70kg・身長170cmの選手が立位から棒のように倒れる場合</div>
+      <div class="calc-value">頭部にかかる力は体重の約<span>1.5倍</span>相当と推定されます</div>
+    </div>
+    <div class="calc-row">
+      <div class="calc-label">柔道の「受け身」（畳を叩き、背面で接地）</div>
+      <div class="calc-value">接地面積が広く、衝撃が時間的・空間的に分散される</div>
+    </div>
+    <div class="calc-row">
+      <div class="calc-label">体育館用床材の安全基準（JIS A 6519）</div>
+      <div class="calc-value">転倒衝突時の頭部加速度は<span>100G以下</span>が望ましいとされる</div>
+    </div>
+    <div class="impact-conclusion">受け身を前提とした畳の耐久試験は、分散された繰り返し荷重への耐性を保証するものです。意識を失った状態での無防備な転倒や、頭部が直接衝突するような立ち技格闘技のノックダウンシーンを想定した安全基準ではありません。<strong>このため、グラウンド・組技が中心のMMA・柔術・レスリングには適していますが、スタンドでの打撃が主体となる空手・キックボクシング・ボクシング専用リング等には、別途、衝撃吸収を主目的としたリングフロア（JIS基準のクッション床材等）の併用を推奨します。</strong></div>
+  </div>
+</section>
+
+<!-- SWOT -->
+<section id="swot">
+  <div class="section-num">10 — HONEST ANALYSIS</div>
+  <h2 class="section-title"><em>強みと弱み</em> — 正直な分析</h2>
+  <p class="section-lead">ZENCOREの優位性と制約を正直にお伝えします。適切な導入判断のためにご活用ください。</p>
+  <div class="swot-grid reveal">
+    <div>
+      <div class="swot-header green">✅ 強み</div>
+      <div class="swot-body">
+        <div class="swot-item"><span class="arrow">▸</span><p>IJF国際認証を持つ製造元 — 品質の第三者証明<small>柔道の国際基準は組技・投げ技を含み、MMAとの適合性が高い</small></p></div>
+        <div class="swot-item"><span class="arrow">▸</span><p>網目模様ゴム滑り止めで安定した摩擦力・安全性<small>濡れた状態でも8KG/SQM以上を維持</small></p></div>
+        <div class="swot-item"><span class="arrow">▸</span><p>完全防水構造で出血・体液にも対応<small>衛生管理の時間とコストを削減</small></p></div>
+        <div class="swot-item"><span class="arrow">▸</span><p>繰り返し圧縮破壊試験クリア — 多方向負荷に対応<small>打撃・投げ・グラウンドの全フェーズに対応</small></p></div>
+        <div class="swot-item"><span class="arrow">▸</span><p>70°C×30日耐熱試験合格 — 夏季でも安心</p></div>
+        <div class="swot-item"><span class="arrow">▸</span><p>米・加・中東・中国への輸出実績で信頼性担保</p></div>
+      </div>
+    </div>
+    <div>
+      <div class="swot-header red">⚠️ 注意点・弱み</div>
+      <div class="swot-body">
+        <div class="swot-item weak"><span class="arrow">▸</span><p>単価¥22,000〜28,000/㎡ — 安価品より初期費用は高め<small>その差額は、安全性・衛生面・国際認証という形でジム運営に還元される（詳細は「価格だけでは測れない価値」参照）</small></p></div>
+        <div class="swot-item weak"><span class="arrow">▸</span><p>立ち技格闘技の無防備な転倒・マシンピラティス等の大型機材には別途ご相談ください<small>柔道・レスリングの「受け身」を取る投げ技とは荷重のかかり方が異なるため（詳細は次ページ）</small></p></div>
+      </div>
+      <div class="proof-note" style="margin-top:1rem;">※カスタムサイズの製造・輸入には標準納期がございます。開業・リニューアル予定がある場合は早めのご相談を推奨します。</div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="cta">
+  <div class="bg-text">Z</div>
+  <h2>選手を守る床を<br>あなたのジムに</h2>
+  <p>IJF公式認証取得済み製造元による、国際大会実証済みのフロアソリューション。打撃・投げ・グラウンド——MMAのすべての局面に対応する床材です。</p>
+  <div class="cta-btns">
+    <a href="#" class="btn-primary">カタログ・サンプル請求</a>
+    <a href="#roi" class="btn-outline">参考コスト試算を見る</a>
+  </div>
+  <div class="event-info">
+    <div class="event-info-item"><label>展示ブース番号</label><span>SPORTEC 2026 / 出展番号 要確認</span></div>
+    <div class="event-info-item"><label>会期</label><span>2026年7月8日（水）〜10日（金）</span></div>
+    <div class="event-info-item"><label>会場</label><span>東京ビッグサイト 東展示棟</span></div>
+  </div>
+  <div class="contact-block">
+    <div class="contact-name">ネムール株式会社　事業開発推進部</div>
+    <div class="contact-person">槙　翼（まき　つばさ）</div>
+    <div class="contact-details">〒990-8670　山形県山形市流通センター2丁目8番4号　|　TEL 023-633-3580</div>
+  </div>
+</section>
+
+<script>
+  function fmt(n) { return '¥' + n.toLocaleString('ja-JP'); }
+  function calcROI() {
+    const area = +document.getElementById('area').value;
+    const ourPrice = +document.getElementById('our-price').value;
+    const freq = +document.getElementById('freq').value;
+    const compP = +document.getElementById('comp-price').value;
+    const install = +document.getElementById('install').value;
+    document.getElementById('area-val').textContent = area + '㎡';
+    document.getElementById('our-price-val').textContent = fmt(ourPrice);
+    document.getElementById('freq-val').textContent = freq + '年';
+    document.getElementById('comp-price-val').textContent = fmt(compP);
+    document.getElementById('install-val').textContent = fmt(install);
+    const ourTotal = area * ourPrice;
+    const replacements = Math.floor(10 / freq);
+    const evaTotal = (area * compP + install) * replacements;
+    const rubberTotal = (area * compP * 1.5 + install) * replacements;
+    const saved = evaTotal - ourTotal;
+    document.getElementById('r-our').textContent = fmt(ourTotal);
+    document.getElementById('r-comp').textContent = fmt(evaTotal);
+    document.getElementById('r-save').textContent = fmt(Math.max(0, saved));
+    const maxVal = Math.max(ourTotal, evaTotal, rubberTotal);
+    document.getElementById('bar-our').style.width = (ourTotal / maxVal * 100) + '%';
+    document.getElementById('bar-eva').style.width = (evaTotal / maxVal * 100) + '%';
+    document.getElementById('bar-rubber').style.width = (rubberTotal / maxVal * 100) + '%';
+    document.getElementById('bar-our-val').textContent = fmt(ourTotal);
+    document.getElementById('bar-eva-val').textContent = fmt(evaTotal);
+    document.getElementById('bar-rubber-val').textContent = fmt(rubberTotal);
+  }
+  calcROI();
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) { setTimeout(() => e.target.classList.add('visible'), i * 60); observer.unobserve(e.target); }
+    });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
